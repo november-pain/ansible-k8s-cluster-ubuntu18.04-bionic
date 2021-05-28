@@ -1,0 +1,26 @@
+---
+- name: initialize the cluster
+  shell: |
+    kubeadm init --pod-network-cidr=192.168.0.0/16
+
+- name: create .kube directory
+  become_user: ansible
+  file:
+    path: /home/ansible/.kube
+    state: directory
+    mode: 0755
+
+- name: copy admin.conf to user kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ansible/.kube/config
+    remote_src: yes
+    owner: ansible
+
+- name: install Pod network
+  become_user: ansible
+  shell: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml >> pod_network_setup.txt
+  args:
+    chdir: $HOME
+    creates: pod_network_setup.txt
+

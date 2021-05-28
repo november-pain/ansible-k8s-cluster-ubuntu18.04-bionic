@@ -1,0 +1,6 @@
+---
+- include_tasks: "{{ task }}.yml"
+  loop:
+    - cluster-init
+  loop_control:
+    loop_var: task

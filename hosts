@@ -1,0 +1,10 @@
+master
+
+[workers]
+slave1 
+slave2 
+slave3 
+
+[all:vars]
+# ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

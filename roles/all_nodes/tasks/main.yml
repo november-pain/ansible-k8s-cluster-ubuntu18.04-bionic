@@ -1,0 +1,10 @@
+---
+- include_tasks: "{{ task }}.yml"
+  loop:
+    - python-apt
+    - sysctl-conf
+    - containerd-setup
+    - disable-swap
+    - kube-modules
+  loop_control:
+    loop_var: task
